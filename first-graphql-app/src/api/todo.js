@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-export async function todoById(parent, args, context, info){
-    return axios.get("https://jsonplaceholder.typicode.com/todos/" + args.id)
+export async function todoById(todo_id){
+    return axios.get("https://jsonplaceholder.typicode.com/todos/" + todo_id)
             .then(
                 todo => {
                     console.log(todo);
@@ -16,7 +16,7 @@ export async function todoById(parent, args, context, info){
             )
 }
 
-export async function todoAll(){
+export async function todosAll(){
     return axios.get("https://jsonplaceholder.typicode.com/todos")
             .then(
                 (todos) => {
@@ -35,6 +35,21 @@ export async function todoAll(){
             )
 }
 
-export async function todoByUserID(){
-    return todoAll().then(todos => todos.filter(t => t.user_id == user_id));
+export async function todosByUserID(user_id){
+    return axios.get("https://jsonplaceholder.typicode.com/users/" + user_id + "/todos")
+    .then(
+        (todos) => {
+            console.log(todos);
+            return todos.data.map(
+                ({ id, title, completed, userId }) => (
+                    {
+                        id: id,
+                        title: title,
+                        completed: completed,
+                        user_id: userId,
+                    }
+                )
+            )
+        }
+    )
 }

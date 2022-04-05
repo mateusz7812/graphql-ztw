@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export async function userById(parent, args, context, info){
-    return axios.get("https://jsonplaceholder.typicode.com/users/" + args.id)
+export async function userById(user_id){
+    return axios.get("https://jsonplaceholder.typicode.com/users/" + user_id)
             .then(
                 user => {
                     console.log(user);
