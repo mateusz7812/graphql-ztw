@@ -19,3 +19,16 @@ type User{
     login: String!
     todos:[ToDoItem!]!
 }
+
+type DeleteStatus{
+    deleted: Boolean
+}
+
+type Mutation {
+    addTodo(title: String!, completed: Boolean!, user_id: ID!): ToDoItem
+    deleteTodo(id: ID!): DeleteStatus
+    editTodo(id: ID!, title: String!, completed: Boolean!, user_id: ID!): ToDoItem
+    addUser(name: String!, email: String!, login: String!): User
+    editUser(id: ID!, name: String!, email: String!, login: String!): User
+    deleteUser(id: ID!): DeleteStatus
+}

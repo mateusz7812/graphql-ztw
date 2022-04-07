@@ -1,8 +1,9 @@
 import axios from "axios";
+import { ADDRESS } from "./consts.js";
 
 
 export async function todoById(todo_id){
-    return axios.get("https://jsonplaceholder.typicode.com/todos/" + todo_id)
+    return axios.get(ADDRESS + "/todos/" + todo_id)
             .then(
                 todo => {
                     console.log(todo);
@@ -17,7 +18,7 @@ export async function todoById(todo_id){
 }
 
 export async function todosAll(){
-    return axios.get("https://jsonplaceholder.typicode.com/todos")
+    return axios.get(ADDRESS + "/todos")
             .then(
                 (todos) => {
                     console.log(todos);
@@ -36,7 +37,7 @@ export async function todosAll(){
 }
 
 export async function todosByUserID(user_id){
-    return axios.get("https://jsonplaceholder.typicode.com/users/" + user_id + "/todos")
+    return axios.get(ADDRESS + "/users/" + user_id + "/todos")
     .then(
         (todos) => {
             console.log(todos);
@@ -52,4 +53,54 @@ export async function todosByUserID(user_id){
             )
         }
     )
+}
+
+export async function addTodoToUser({title, completed, user_id}){
+    return axios.post(ADDRESS + '/todos', {
+            title: title,
+            completed: completed,
+            userId: user_id
+        })
+        .then(todo => {
+            console.log(todo);
+            return {
+                id: todo.data.id,
+                title: todo.data.title,
+                completed: todo.data.completed,
+                user_id: todo.data.userId,
+            }    
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+export async function editTodoById({id, title, completed, user_id}){
+    return axios.put(ADDRESS + '/todos/' + id, {
+            title: title,
+            completed: completed,
+            userId: user_id
+        })
+        .then(todo => {
+            console.log(todo);
+            return {
+                id: todo.data.id,
+                title: todo.data.title,
+                completed: todo.data.completed,
+                user_id: todo.data.userId,
+            }    
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+export async function deleteTodoById(todo_id){
+    return axios.delete(ADDRESS + "/todos/" + todo_id)
+            .then(
+                todo => {
+                    console.log(todo.status);
+                    return { deleted: true }; 
+                }
+            )
 }

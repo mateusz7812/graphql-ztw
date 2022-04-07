@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": " nodemon -e js,graphql src/App.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "graphql-import": "^1.0.2",
+    "axios": "^0.26.1",
+    "graphql-import": "^0.7.1",
     "graphql-yoga": "^2.0.0",
     "nodemon": "^2.0.15"
   }

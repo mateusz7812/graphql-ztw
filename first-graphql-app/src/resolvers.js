@@ -1,5 +1,5 @@
-import { todosAll, todoById, todosByUserID } from './api/todo.js';
-import { usersAll, userById } from './api/users.js';
+import { todosAll, todoById, todosByUserID , addTodoToUser, deleteTodoById, editTodoById} from './api/todo.js';
+import { usersAll, userById, addNewUser, editUserById, deleteUserById } from './api/users.js';
 
 export const resolvers = {
         Query: {
@@ -14,4 +14,30 @@ export const resolvers = {
         ToDoItem:{
             user:  (parent, args, context, info) => userById(parent.user_id)
         },
+        Mutation: {
+            addUser: (parent, args, context, info) => addNewUser({
+                name: args.name,
+                email: args.email,
+                login: args.login
+            }),
+            editUser: (parent, args, context, info) => editUserById({
+                id: args.id,
+                name: args.name,
+                email: args.email,
+                login: args.login
+            }), 
+            deleteUser: (parent, args, context, info) => deleteUserById(args.id),
+            addTodo: (parent, args, context, info) => addTodoToUser({
+                title: args.title, 
+                completed: args.completed, 
+                user_id: args.user_id
+            }),
+            editTodo: (parent, args, context, info) => editTodoById({
+                id: args.id,
+                title: args.title, 
+                completed: args.completed, 
+                user_id: args.user_id
+            }), 
+            deleteTodo: (parent, args, context, info) => deleteTodoById(args.id),
+        }
     }
